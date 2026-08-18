@@ -1,4 +1,3 @@
-
 {
   "expo": {
     "name": "gke-expo-app",
@@ -33,8 +32,9 @@
     "plugins": [],
     "extra": {
       "eas": {
-        "projectId": "ضع-هنا-معرف-المشروع-الخاص-بك"
+        "projectId": "dcfb88da-71b8-4f22-b220-36541eedf0e0"
       }
-    }
+    },
+    "description": "Expo React Native App"
   }
 }
