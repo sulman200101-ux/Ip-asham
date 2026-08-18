@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "gke-expo-app",
@@ -32,7 +33,7 @@
     "plugins": [],
     "extra": {
       "eas": {
-        "projectId": ""
+        "projectId": "ضع-هنا-معرف-المشروع-الخاص-بك"
       }
     }
   }
