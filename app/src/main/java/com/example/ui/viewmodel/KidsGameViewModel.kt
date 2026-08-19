@@ -559,4 +559,11 @@ class KidsGameViewModel(application: Application) : AndroidViewModel(application
     fun getBadges(unlockedIds: Set<String>, stars: Int, creations: Int, level: Int): List<KidBadge> {
         return repository.getAllBadges(unlockedIds, stars, creations, level)
     }
+
+    fun rewardStarsForAd(stars: Int = 5) {
+        viewModelScope.launch {
+            repository.addBonusStars(stars)
+            SoundSynthesizer.playStar()
+        }
+    }
 }

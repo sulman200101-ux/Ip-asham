@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.data.ads.AdMobManager
 import com.example.ui.navigation.Screen
 import com.example.ui.screens.HomeScreen
 import com.example.ui.screens.LevelsSelectScreen
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        AdMobManager.initialize(this)
         setContent {
             SmartKidsBuilderTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {

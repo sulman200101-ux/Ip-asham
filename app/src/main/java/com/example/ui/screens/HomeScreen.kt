@@ -61,6 +61,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.data.sound.SoundSynthesizer
+import androidx.compose.ui.platform.LocalContext
+import android.app.Activity
+import androidx.compose.material.icons.filled.PlayCircleOutline
+import com.example.data.ads.AdMobManager
+import com.example.ui.components.AdBannerView
 import com.example.ui.components.KidButton
 import com.example.ui.components.StarBadge
 import com.example.ui.navigation.Screen
@@ -330,6 +335,81 @@ fun HomeScreen(
                     )
                 }
             }
+        }
+
+        // REWARDED VIDEO AD CARD (FREE 5 STARS FOR KIDS)
+        item {
+            val context = LocalContext.current
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp))
+                    .clickable {
+                        (context as? Activity)?.let { activity ->
+                            AdMobManager.showRewardedAd(
+                                activity = activity,
+                                onUserEarnedReward = { amount ->
+                                    viewModel.rewardStarsForAd(amount)
+                                }
+                            )
+                        }
+                    },
+                color = PlayfulPurple.copy(alpha = 0.12f),
+                shape = RoundedCornerShape(24.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(
+                            modifier = Modifier
+                                .size(46.dp)
+                                .background(PlayfulPurple.copy(alpha = 0.25f), CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "🎁", fontSize = 24.sp)
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column {
+                            Text(
+                                text = "هدية النجوم المجانية ⭐",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "شاهد إعلاناً قصيراً واحصل على 5 نجوم!",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    KidButton(
+                        text = "+5 ⭐",
+                        onClick = {
+                            (context as? Activity)?.let { activity ->
+                                AdMobManager.showRewardedAd(
+                                    activity = activity,
+                                    onUserEarnedReward = { amount ->
+                                        viewModel.rewardStarsForAd(amount)
+                                    }
+                                )
+                            }
+                        },
+                        backgroundColor = PlayfulPurple,
+                        elevationDp = 2.dp,
+                        modifier = Modifier.height(38.dp)
+                    )
+                }
+            }
+        }
+
+        // ADMOB BANNER AD
+        item {
+            AdBannerView(modifier = Modifier.padding(vertical = 4.dp))
         }
     }
 }

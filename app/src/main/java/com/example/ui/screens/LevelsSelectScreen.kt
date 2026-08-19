@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import com.example.data.model.BlueprintLevel
 import com.example.data.repository.BlueprintCatalog
 import com.example.data.sound.SoundSynthesizer
+import com.example.ui.components.AdBannerView
 import com.example.ui.components.StarBadge
 import com.example.ui.theme.PlayfulSecondary
 import com.example.ui.theme.StarGold
@@ -125,12 +126,14 @@ fun LevelsSelectScreen(
         // GRID OF LEVELS
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth(),
             contentPadding = PaddingValues(
                 start = 16.dp,
                 end = 16.dp,
                 top = 8.dp,
-                bottom = bottomInset + 24.dp
+                bottom = 12.dp
             ),
             horizontalArrangement = Arrangement.spacedBy(14.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
@@ -155,6 +158,13 @@ fun LevelsSelectScreen(
                 )
             }
         }
+
+        // ADMOB BANNER
+        AdBannerView(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 6.dp)
+                .padding(bottom = bottomInset)
+        )
     }
 }
 

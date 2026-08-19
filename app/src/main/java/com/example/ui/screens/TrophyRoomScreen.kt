@@ -50,6 +50,10 @@ import androidx.compose.ui.unit.sp
 import com.example.data.model.BlockThemeSkin
 import com.example.data.model.KidBadge
 import com.example.data.sound.SoundSynthesizer
+import androidx.compose.ui.platform.LocalContext
+import android.app.Activity
+import com.example.data.ads.AdMobManager
+import com.example.ui.components.AdBannerView
 import com.example.ui.components.KidButton
 import com.example.ui.components.StarBadge
 import com.example.ui.theme.PlayfulGreen
@@ -293,6 +297,81 @@ fun TrophyRoomScreen(
                     }
                 }
             }
+        }
+
+        // REWARDED VIDEO AD TO EARN STARS
+        item {
+            val context = LocalContext.current
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(22.dp))
+                    .clickable {
+                        (context as? Activity)?.let { activity ->
+                            AdMobManager.showRewardedAd(
+                                activity = activity,
+                                onUserEarnedReward = { amount ->
+                                    viewModel.rewardStarsForAd(amount)
+                                }
+                            )
+                        }
+                    },
+                color = StarGold.copy(alpha = 0.15f),
+                shape = RoundedCornerShape(22.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Box(
+                            modifier = Modifier
+                                .size(48.dp)
+                                .background(StarGold.copy(alpha = 0.3f), CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "⭐", fontSize = 26.sp)
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column {
+                            Text(
+                                text = "احصل على 5 نجوم مجاناً!",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 15.sp,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "شاهد إعلاناً لفتح المزيد من المظاهر",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    KidButton(
+                        text = "مشاهدة 📺",
+                        onClick = {
+                            (context as? Activity)?.let { activity ->
+                                AdMobManager.showRewardedAd(
+                                    activity = activity,
+                                    onUserEarnedReward = { amount ->
+                                        viewModel.rewardStarsForAd(amount)
+                                    }
+                                )
+                            }
+                        },
+                        backgroundColor = PlayfulSecondary,
+                        elevationDp = 2.dp,
+                        modifier = Modifier.height(38.dp)
+                    )
+                }
+            }
+        }
+
+        // ADMOB BANNER
+        item {
+            AdBannerView(modifier = Modifier.padding(vertical = 4.dp))
         }
     }
 }

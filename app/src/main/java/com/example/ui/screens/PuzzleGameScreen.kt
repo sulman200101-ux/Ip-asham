@@ -60,6 +60,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
+import android.app.Activity
+import com.example.data.ads.AdMobManager
 import com.example.data.model.BlueprintPiece
 import com.example.data.repository.BlueprintCatalog
 import com.example.data.sound.SoundSynthesizer
@@ -391,13 +394,20 @@ fun PuzzleGameScreen(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
+                    val context = LocalContext.current
                     val nextLevelId = level.levelId + 1
                     val hasNext = BlueprintCatalog.levels.any { it.levelId == nextLevelId }
 
                     if (hasNext) {
                         KidButton(
                             text = "اللغز التالي 🚀",
-                            onClick = { onNextLevel(nextLevelId) },
+                            onClick = {
+                                (context as? Activity)?.let { activity ->
+                                    AdMobManager.showInterstitialAd(activity) {
+                                        onNextLevel(nextLevelId)
+                                    }
+                                } ?: onNextLevel(nextLevelId)
+                            },
                             backgroundColor = PlayfulGreen,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -406,7 +416,13 @@ fun PuzzleGameScreen(
 
                     KidButton(
                         text = "قائمة المستويات 📋",
-                        onClick = { onBack() },
+                        onClick = {
+                            (context as? Activity)?.let { activity ->
+                                AdMobManager.showInterstitialAd(activity) {
+                                    onBack()
+                                }
+                            } ?: onBack()
+                        },
                         backgroundColor = PlayfulSecondary,
                         modifier = Modifier.fillMaxWidth()
                     )

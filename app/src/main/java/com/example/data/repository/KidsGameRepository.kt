@@ -60,6 +60,13 @@ class KidsGameRepository(private val dao: KidsDao) {
         checkAndUnlockAchievements(newTotalStars, newHighestLevel, currentProfile.creationsCount)
     }
 
+    suspend fun addBonusStars(stars: Int) {
+        val currentProfile = dao.getPlayerProfile().firstOrNull() ?: PlayerProfileEntity()
+        val newTotal = currentProfile.totalStars + stars
+        dao.insertOrUpdateProfile(currentProfile.copy(totalStars = newTotal))
+        checkAndUnlockAchievements(newTotal, currentProfile.highestUnlockedLevel, currentProfile.creationsCount)
+    }
+
     suspend fun saveCreation(title: String, blocks: List<PlacedBlock>): Long {
         val jsonArray = JSONArray()
         for (b in blocks) {
