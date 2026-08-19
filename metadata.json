@@ -1,0 +1,7 @@
+{
+  "name": "OpenAI Studio",
+  "description": "Interactive mobile developer playground and client for OpenAI API, supporting Chat Completions, DALL-E, TTS & Whisper audio, live Python code generator, and model exploration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
