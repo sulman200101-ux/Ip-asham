@@ -2,35 +2,35 @@ package com.example.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Primary Brand - OpenAI Emerald & Obsidian
-val OpenAIGreen = Color(0xFF10A37F)
-val OpenAIGreenLight = Color(0xFF1BE1AC)
-val OpenAIGreenDark = Color(0xFF0C7A5F)
+// Playful & Vibrant Kids Color Palette
+val PlayfulPrimary = Color(0xFFFF5252) // Vibrant Coral Red
+val PlayfulOnPrimary = Color(0xFFFFFFFF)
+val PlayfulPrimaryContainer = Color(0xFFFFDADA)
+val PlayfulOnPrimaryContainer = Color(0xFF410002)
 
-val CyanAccent = Color(0xFF00E5FF)
-val AmberAccent = Color(0xFFFFB300)
-val PurpleAccent = Color(0xFFAB47BC)
+val PlayfulSecondary = Color(0xFF2E86DE) // Royal Sky Blue
+val PlayfulOnSecondary = Color(0xFFFFFFFF)
+val PlayfulSecondaryContainer = Color(0xFFD3E4FD)
+val PlayfulOnSecondaryContainer = Color(0xFF001C3A)
 
-// Dark Theme Surfaces
-val ObsidianBlack = Color(0xFF0D1117)
-val ObsidianSurface = Color(0xFF161B22)
-val ObsidianCard = Color(0xFF21262D)
-val ObsidianBorder = Color(0xFF30363D)
-val ObsidianText = Color(0xFFF0F6FC)
-val ObsidianSubtext = Color(0xFF8B949E)
+val PlayfulTertiary = Color(0xFFFFA502) // Sunny Gold Yellow
+val PlayfulOnTertiary = Color(0xFFFFFFFF)
+val PlayfulTertiaryContainer = Color(0xFFFFEEB2)
+val PlayfulOnTertiaryContainer = Color(0xFF261900)
 
-// Light Theme Surfaces
-val TechWhite = Color(0xFFF8FAFC)
-val TechSurface = Color(0xFFFFFFFF)
-val TechCard = Color(0xFFF1F5F9)
-val TechBorder = Color(0xFFE2E8F0)
-val TechText = Color(0xFF0F172A)
-val TechSubtext = Color(0xFF64748B)
+val PlayfulGreen = Color(0xFF2ED573) // Vivid Candy Green
+val PlayfulPurple = Color(0xFF9B59B6) // Magic Purple
+val PlayfulCyan = Color(0xFF00D2D3) // Cool Turquoise
+val PlayfulPink = Color(0xFFFF69B4) // Bright Pink
+val PlayfulOrange = Color(0xFFFF793F) // Bright Orange
 
-// Code Syntax Colors
-val CodeBgDark = Color(0xFF090D12)
-val CodeKeyword = Color(0xFFFF7B72)
-val CodeString = Color(0xFFA5D6FF)
-val CodeFunction = Color(0xFFD2A8FF)
-val CodeComment = Color(0xFF8B949E)
-val CodeNumber = Color(0xFF79C0FF)
+val PlayfulBackgroundLight = Color(0xFFF7F9FC)
+val PlayfulSurfaceLight = Color(0xFFFFFFFF)
+val PlayfulSurfaceVariantLight = Color(0xFFEEF2F6)
+
+val PlayfulBackgroundDark = Color(0xFF141923)
+val PlayfulSurfaceDark = Color(0xFF1E2533)
+val PlayfulSurfaceVariantDark = Color(0xFF293245)
+
+val StarGold = Color(0xFFFFD200)
+val StarGoldGlow = Color(0xFFFFA000)

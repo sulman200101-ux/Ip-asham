@@ -22,6 +22,6 @@ dependencyResolutionManagement {
   }
 }
 
-rootProject.name = "OpenAI Studio"
+rootProject.name = "SmartKidsBuilder"
 
 include(":app")

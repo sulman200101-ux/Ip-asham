@@ -5,161 +5,111 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.ui.navigation.BottomNavScreens
+import androidx.navigation.navArgument
 import com.example.ui.navigation.Screen
-import com.example.ui.screens.*
-import com.example.ui.theme.MyApplicationTheme
-import com.example.ui.theme.OpenAIGreen
-import com.example.ui.viewmodel.StudioViewModel
+import com.example.ui.screens.HomeScreen
+import com.example.ui.screens.LevelsSelectScreen
+import com.example.ui.screens.MemoryMatchScreen
+import com.example.ui.screens.PhysicsTowerScreen
+import com.example.ui.screens.PuzzleGameScreen
+import com.example.ui.screens.SandboxStudioScreen
+import com.example.ui.screens.TrophyRoomScreen
+import com.example.ui.theme.SmartKidsBuilderTheme
+import com.example.ui.viewmodel.KidsGameViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val viewModel: StudioViewModel by viewModels()
+    private val viewModel: KidsGameViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MyApplicationTheme {
-                OpenAiStudioApp(viewModel = viewModel)
-            }
-        }
-    }
-}
-
-@Composable
-fun OpenAiStudioApp(viewModel: StudioViewModel) {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
-        bottomBar = {
-            NavigationBar(
-                containerColor = MaterialTheme.colorScheme.surface,
-                windowInsets = WindowInsets.navigationBars
-            ) {
-                BottomNavScreens.forEach { screen ->
-                    val isSelected = currentRoute == screen.route
-                    NavigationBarItem(
-                        icon = {
-                            Icon(
-                                imageVector = if (isSelected) screen.selectedIcon else screen.unselectedIcon,
-                                contentDescription = screen.title
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = screen.title,
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    fontSize = 10.sp,
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
-                                )
-                            )
-                        },
-                        selected = isSelected,
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = OpenAIGreen,
-                            selectedTextColor = OpenAIGreen,
-                            indicatorColor = OpenAIGreen.copy(alpha = 0.15f)
-                        ),
-                        onClick = {
-                            if (currentRoute != screen.route) {
-                                navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
-                        }
-                    )
+            SmartKidsBuilderTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    SmartKidsBuilderApp(viewModel = viewModel)
                 }
             }
         }
-    ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = Screen.Playground.route,
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable(Screen.Playground.route) {
-                PlaygroundScreen(viewModel = viewModel)
-            }
-            composable(Screen.StrategyAndAnalysis.route) {
-                StrategyAndAnalysisScreen(
-                    viewModel = viewModel,
-                    onNavigateToPlayground = { prompt ->
-                        viewModel.sendUserMessage(prompt)
-                        navController.navigate(Screen.Playground.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    }
-                )
-            }
-            composable(Screen.ImageStudio.route) {
-                ImageStudioScreen(viewModel = viewModel)
-            }
-            composable(Screen.AudioStudio.route) {
-                AudioStudioScreen(viewModel = viewModel)
-            }
-            composable(Screen.PythonSdk.route) {
-                PythonSdkScreen()
-            }
-            composable(Screen.Models.route) {
-                ModelsExplorerScreen(
-                    viewModel = viewModel,
-                    onLaunchPlayground = { modelId ->
-                        viewModel.updateSessionModel(modelId)
-                        navController.navigate(Screen.Playground.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    }
-                )
-            }
-            composable(Screen.Settings.route) {
-                SettingsScreen(viewModel = viewModel)
-            }
-        }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(text = "Hello $name!", modifier = modifier)
-}
+fun SmartKidsBuilderApp(viewModel: KidsGameViewModel) {
+    val navController = rememberNavController()
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyApplicationTheme {
-        Greeting("OpenAI Studio")
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Home.route,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        composable(Screen.Home.route) {
+            HomeScreen(
+                viewModel = viewModel,
+                onNavigate = { route -> navController.navigate(route) }
+            )
+        }
+
+        composable(Screen.LevelsSelect.route) {
+            LevelsSelectScreen(
+                viewModel = viewModel,
+                onSelectLevel = { levelId ->
+                    navController.navigate(Screen.PuzzleGame.createRoute(levelId))
+                },
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(
+            route = Screen.PuzzleGame.route,
+            arguments = listOf(navArgument("levelId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val levelId = backStackEntry.arguments?.getInt("levelId") ?: 1
+            PuzzleGameScreen(
+                levelId = levelId,
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() },
+                onNextLevel = { nextId ->
+                    navController.popBackStack()
+                    navController.navigate(Screen.PuzzleGame.createRoute(nextId))
+                }
+            )
+        }
+
+        composable(Screen.SandboxStudio.route) {
+            SandboxStudioScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.PhysicsTower.route) {
+            PhysicsTowerScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.MemoryMatch.route) {
+            MemoryMatchScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.TrophyRoom.route) {
+            TrophyRoomScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
     }
 }

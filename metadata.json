@@ -1,6 +1,6 @@
 {
-  "name": "OpenAI Studio",
-  "description": "Interactive mobile developer playground and client for OpenAI API, supporting Chat Completions, DALL-E, TTS & Whisper audio, live Python code generator, and model exploration.",
+  "name": "بَنّاء الأذكياء",
+  "description": "لعبة ذكاء وبناء وتركيب ممتعة للأطفال مع ألغاز ثلاثية الأبعاد، ورشة بناء إبداعية، وتحديات فيزياء وتوازن ممتعة.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
