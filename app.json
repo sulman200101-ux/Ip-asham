@@ -9,20 +9,19 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0f172a"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "owner": "sulman200101",
     "ios": {
-      "supportsTabletMode": true,
       "bundleIdentifier": "com.sulman200101.gkeexpoapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#0f172a"
       },
       "package": "com.sulman200101.gkeexpoapp"
     },
