@@ -89,6 +89,18 @@ fun SingingStudioScreen(
     val credits by viewModel.credits.collectAsState()
 
     var themeInput by remember { mutableStateOf("") }
+    var showAiConfigDialog by remember { mutableStateOf(false) }
+
+    if (showAiConfigDialog) {
+        com.example.ui.components.AiConnectionHubDialog(
+            onDismiss = { showAiConfigDialog = false },
+            onSave = { apiKey, model, temp ->
+                com.example.data.api.GeminiApiClient.saveApiKey(apiKey)
+                com.example.data.api.GeminiApiClient.saveSelectedModel(model)
+                com.example.data.api.GeminiApiClient.saveTemperature(temp)
+            }
+        )
+    }
 
     Scaffold(
         containerColor = DarkBg,
@@ -107,6 +119,7 @@ fun SingingStudioScreen(
                     subtitle = "تأليف الكلمات وتوليد غناء ونغمات موسيقية حية",
                     credits = credits,
                     onBackClick = onBackClick,
+                    onAiConfigClick = { showAiConfigDialog = true },
                     onRewardClick = {
                         viewModel.unlockRewardedCredits(activity) {}
                     }

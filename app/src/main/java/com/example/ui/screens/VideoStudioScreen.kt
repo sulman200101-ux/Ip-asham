@@ -86,7 +86,19 @@ fun VideoStudioScreen(
     val credits by viewModel.credits.collectAsState()
 
     var storyInput by remember { mutableStateOf("") }
+    var showAiConfigDialog by remember { mutableStateOf(false) }
     val currentScene = scenes.getOrNull(currentSceneIndex)
+
+    if (showAiConfigDialog) {
+        com.example.ui.components.AiConnectionHubDialog(
+            onDismiss = { showAiConfigDialog = false },
+            onSave = { apiKey, model, temp ->
+                com.example.data.api.GeminiApiClient.saveApiKey(apiKey)
+                com.example.data.api.GeminiApiClient.saveSelectedModel(model)
+                com.example.data.api.GeminiApiClient.saveTemperature(temp)
+            }
+        )
+    }
 
     Scaffold(
         containerColor = DarkBg,
@@ -105,6 +117,7 @@ fun VideoStudioScreen(
                     subtitle = "توليد فيديوهات كرتونية وأنيميشن تفاعلي بدقة 60fps",
                     credits = credits,
                     onBackClick = onBackClick,
+                    onAiConfigClick = { showAiConfigDialog = true },
                     onRewardClick = {
                         viewModel.unlockRewardedCredits(activity) {}
                     }

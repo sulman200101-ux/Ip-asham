@@ -93,6 +93,18 @@ fun VoiceStudioScreen(
     var promptTopic by remember { mutableStateOf("") }
     var saveTitle by remember { mutableStateOf("") }
     var showSaveDialog by remember { mutableStateOf(false) }
+    var showAiConfigDialog by remember { mutableStateOf(false) }
+
+    if (showAiConfigDialog) {
+        com.example.ui.components.AiConnectionHubDialog(
+            onDismiss = { showAiConfigDialog = false },
+            onSave = { apiKey, model, temp ->
+                com.example.data.api.GeminiApiClient.saveApiKey(apiKey)
+                com.example.data.api.GeminiApiClient.saveSelectedModel(model)
+                com.example.data.api.GeminiApiClient.saveTemperature(temp)
+            }
+        )
+    }
 
     Scaffold(
         containerColor = DarkBg,
@@ -111,6 +123,7 @@ fun VoiceStudioScreen(
                     subtitle = "توليد أصوات واقعية وشخصيات مميزة",
                     credits = credits,
                     onBackClick = onBackClick,
+                    onAiConfigClick = { showAiConfigDialog = true },
                     onRewardClick = {
                         viewModel.unlockRewardedCredits(activity) {}
                     }

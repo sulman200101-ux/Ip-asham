@@ -69,6 +69,12 @@ import com.example.ui.theme.TextMuted
 import com.example.ui.theme.TextWhite
 import com.example.ui.viewmodel.StudioViewModel
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import com.example.ui.components.AiConnectionHubDialog
+import com.example.data.api.GeminiApiClient
+
 @Composable
 fun HomeScreen(
     viewModel: StudioViewModel,
@@ -81,6 +87,18 @@ fun HomeScreen(
     val activity = context as? Activity
     val credits by viewModel.credits.collectAsState()
     val recentProjects by viewModel.allProjects.collectAsState()
+    var showAiConfigDialog by remember { mutableStateOf(false) }
+
+    if (showAiConfigDialog) {
+        AiConnectionHubDialog(
+            onDismiss = { showAiConfigDialog = false },
+            onSave = { apiKey, model, temp ->
+                GeminiApiClient.saveApiKey(apiKey)
+                GeminiApiClient.saveSelectedModel(model)
+                GeminiApiClient.saveTemperature(temp)
+            }
+        )
+    }
 
     Scaffold(
         containerColor = DarkBg,
@@ -100,6 +118,7 @@ fun HomeScreen(
                     title = "صوت وأنيميشن AI",
                     subtitle = "استوديو توليد الصوت والغناء والرسوم المتحركة",
                     credits = credits,
+                    onAiConfigClick = { showAiConfigDialog = true },
                     onRewardClick = {
                         viewModel.unlockRewardedCredits(activity) {}
                     }
