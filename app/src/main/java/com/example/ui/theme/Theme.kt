@@ -1,71 +1,67 @@
 package com.example.ui.theme
 
-import android.os.Build
+import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
+import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PlayfulPrimary,
-    onPrimary = PlayfulOnPrimary,
-    primaryContainer = Color(0xFF7F1D1D),
-    onPrimaryContainer = Color(0xFFFFDADA),
-    secondary = PlayfulSecondary,
-    onSecondary = PlayfulOnSecondary,
-    secondaryContainer = Color(0xFF1E3A8A),
-    onSecondaryContainer = Color(0xFFD3E4FD),
-    tertiary = PlayfulTertiary,
-    onTertiary = PlayfulOnTertiary,
-    tertiaryContainer = Color(0xFF78350F),
-    onTertiaryContainer = Color(0xFFFFEEB2),
-    background = PlayfulBackgroundDark,
-    surface = PlayfulSurfaceDark,
-    surfaceVariant = PlayfulSurfaceVariantDark,
-    onBackground = Color(0xFFF1F5F9),
-    onSurface = Color(0xFFF1F5F9),
-    onSurfaceVariant = Color(0xFFCBD5E1)
+    primary = NeonViolet,
+    onPrimary = TextWhite,
+    primaryContainer = DarkCard,
+    onPrimaryContainer = NeonVioletLight,
+    secondary = NeonCyan,
+    onSecondary = DarkBg,
+    secondaryContainer = DarkCard,
+    onSecondaryContainer = NeonCyanLight,
+    tertiary = SunsetPink,
+    background = DarkBg,
+    onBackground = TextWhite,
+    surface = DarkSurface,
+    onSurface = TextWhite,
+    surfaceVariant = DarkCard,
+    onSurfaceVariant = TextMuted,
+    outline = DarkCardBorder
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = PlayfulPrimary,
-    onPrimary = PlayfulOnPrimary,
-    primaryContainer = PlayfulPrimaryContainer,
-    onPrimaryContainer = PlayfulOnPrimaryContainer,
-    secondary = PlayfulSecondary,
-    onSecondary = PlayfulOnSecondary,
-    secondaryContainer = PlayfulSecondaryContainer,
-    onSecondaryContainer = PlayfulOnSecondaryContainer,
-    tertiary = PlayfulTertiary,
-    onTertiary = PlayfulOnTertiary,
-    tertiaryContainer = PlayfulTertiaryContainer,
-    onTertiaryContainer = PlayfulOnTertiaryContainer,
-    background = PlayfulBackgroundLight,
-    surface = PlayfulSurfaceLight,
-    surfaceVariant = PlayfulSurfaceVariantLight,
-    onBackground = Color(0xFF1E293B),
-    onSurface = Color(0xFF1E293B),
-    onSurfaceVariant = Color(0xFF475569)
+    primary = NeonViolet,
+    onPrimary = TextWhite,
+    primaryContainer = LightCard,
+    onPrimaryContainer = NeonViolet,
+    secondary = NeonCyan,
+    onSecondary = TextWhite,
+    secondaryContainer = LightCard,
+    onSecondaryContainer = NeonCyan,
+    tertiary = SunsetPink,
+    background = LightBg,
+    onBackground = TextDark,
+    surface = LightSurface,
+    onSurface = TextDark,
+    surfaceVariant = LightCard,
+    onSurfaceVariant = TextMuted,
+    outline = LightCardBorder
 )
 
 @Composable
-fun SmartKidsBuilderTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // Use intentional colorful theme by default
+fun MyApplicationTheme(
+    darkTheme: Boolean = true, // Default to sleek futuristic dark studio theme
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = colorScheme.background.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
     }
 
     MaterialTheme(

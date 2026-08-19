@@ -2,35 +2,25 @@ package com.example.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Playful & Vibrant Kids Color Palette
-val PlayfulPrimary = Color(0xFFFF5252) // Vibrant Coral Red
-val PlayfulOnPrimary = Color(0xFFFFFFFF)
-val PlayfulPrimaryContainer = Color(0xFFFFDADA)
-val PlayfulOnPrimaryContainer = Color(0xFF410002)
+val NeonViolet = Color(0xFF8B5CF6)
+val NeonVioletLight = Color(0xFFA78BFA)
+val NeonCyan = Color(0xFF06B6D4)
+val NeonCyanLight = Color(0xFF67E8F9)
+val SunsetPink = Color(0xFFEC4899)
+val SunsetCoral = Color(0xFFF43F5E)
+val AmberGold = Color(0xFFF59E0B)
+val EmeraldGreen = Color(0xFF10B981)
 
-val PlayfulSecondary = Color(0xFF2E86DE) // Royal Sky Blue
-val PlayfulOnSecondary = Color(0xFFFFFFFF)
-val PlayfulSecondaryContainer = Color(0xFFD3E4FD)
-val PlayfulOnSecondaryContainer = Color(0xFF001C3A)
+val DarkBg = Color(0xFF0B0F19)
+val DarkSurface = Color(0xFF131B2E)
+val DarkCard = Color(0xFF1E283F)
+val DarkCardBorder = Color(0xFF2D3B58)
 
-val PlayfulTertiary = Color(0xFFFFA502) // Sunny Gold Yellow
-val PlayfulOnTertiary = Color(0xFFFFFFFF)
-val PlayfulTertiaryContainer = Color(0xFFFFEEB2)
-val PlayfulOnTertiaryContainer = Color(0xFF261900)
+val LightBg = Color(0xFFF8FAFC)
+val LightSurface = Color(0xFFFFFFFF)
+val LightCard = Color(0xFFF1F5F9)
+val LightCardBorder = Color(0xFFE2E8F0)
 
-val PlayfulGreen = Color(0xFF2ED573) // Vivid Candy Green
-val PlayfulPurple = Color(0xFF9B59B6) // Magic Purple
-val PlayfulCyan = Color(0xFF00D2D3) // Cool Turquoise
-val PlayfulPink = Color(0xFFFF69B4) // Bright Pink
-val PlayfulOrange = Color(0xFFFF793F) // Bright Orange
-
-val PlayfulBackgroundLight = Color(0xFFF7F9FC)
-val PlayfulSurfaceLight = Color(0xFFFFFFFF)
-val PlayfulSurfaceVariantLight = Color(0xFFEEF2F6)
-
-val PlayfulBackgroundDark = Color(0xFF141923)
-val PlayfulSurfaceDark = Color(0xFF1E2533)
-val PlayfulSurfaceVariantDark = Color(0xFF293245)
-
-val StarGold = Color(0xFFFFD200)
-val StarGoldGlow = Color(0xFFFFA000)
+val TextWhite = Color(0xFFF8FAFC)
+val TextMuted = Color(0xFF94A3B8)
+val TextDark = Color(0xFF0F172A)
