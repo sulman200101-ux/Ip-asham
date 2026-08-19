@@ -14,7 +14,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "owner": "sulman200101-ux",
+    "owner": "sulman200101",
     "ios": {
       "supportsTabletMode": true,
       "bundleIdentifier": "com.sulman200101.gkeexpoapp"
