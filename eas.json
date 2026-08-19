@@ -15,10 +15,10 @@
       }
     },
     "production": {
-      "distribution": "store"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }
